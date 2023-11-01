@@ -7,12 +7,6 @@ Sigla varchar(2),
 Nome varchar (50),
 primary key (Sigla));
 
-create table tem(
-Sigla varchar (2),
-Cod_cli int not null auto_increment,
-foreign key (Sigla) references Nacionalidade(Sigla),
-foreign key (Cod_cli) references Cliente(Cod_cli));
-
 create table Cliente(
 Cod_cli int not null auto_increment,
 Nome_cli varchar(50) not null,
@@ -21,6 +15,12 @@ Cpf varchar(11) not null,
 Passaporte varchar(20) not null,
 Documento varchar(20) not null,
 primary key (Cod_cli));
+
+create table tem(
+Sigla varchar (2),
+Cod_cli int not null auto_increment,
+foreign key (Sigla) references Nacionalidade(Sigla),
+foreign key (Cod_cli) references Cliente(Cod_cli));
 
 create table Tipo_quarto(
 Cod_tipo_qua varchar(5) not null,
@@ -55,25 +55,31 @@ foreign key (Cod_tipo_qua) references Tipo_quarto(Cod_tipo_qua),
 foreign key (Cod_ope) references Operadora (Cod_ope));
 
 Insert into Nacionalidade(Sigla,Nome)
-values('BR','Reino Unido');
+values('BR','Brasil'),('UK','Reino Unido');
 
-insert into tem(Sigla,Cod_cli)
-values ('UK','2');
+insert into cliente(Nome_cli,Telefone,Cpf,Passaporte,Documento)values
+('Juliana Gomes','985422265','65987544782','6325','685598'),
+('Vitor','985642549','36595844497','2654','985647');
 
-insert into cliente(Nome_cli,Telefone,Cpf,Passaporte,Documento)
-values('Juliana Gomes','985422265','65987544782','6325','685598');
+insert into tem(Sigla,Cod_cli)values
+('BR','2'),
+('UK','1');
 
-insert into tipo_quarto(Cod_tipo_qua,Desc_tipo,Val_Tipo_qua)
-values('2','Quarto Casal','R$65,00');
+insert into tipo_quarto(Cod_tipo_qua,Desc_tipo,Val_Tipo_qua)values
+('1','Quarto Famalia','R$135,00'),
+('2','Quarto Casal','R$64,00');
 																		/*Quando na tabela tiver uma chave estrangeira tem que inserir tambem.*/
-insert into Quarto(Num_qua,Andar,Cod_tipo_qua) 							-- Nesse caso Cod_tipo_qua é uma chave estrangeir, que é chave primaria da tabela tipo_quarto
-values(4,1,'2');
+insert into Quarto(Num_qua,Andar,Cod_tipo_qua) values						-- Nesse caso Cod_tipo_qua é uma chave estrangeir, que é chave primaria da tabela tipo_quarto
+(4,1,'2'),
+(6,1,'1');
 
-insert into operadora(Cod_ope,Nom_ope)
-values('985','MasterCard');
+insert into operadora(Cod_ope,Nom_ope)values
+('985','MasterCard'),
+('354','MasterCard');
 
-insert into Reserva(Num_Res,Num_cartao,Qtd_dia,Dat_res,Dat_inic,_Status,Cod_cli,Cod_tipo_qua,Cod_ope)
-values('2','6632895637914527','14','2023-06-02','2023-07-01','Aguardando Pagamento',2,'2','985');
+insert into Reserva(Num_Res,Num_cartao,Qtd_dia,Dat_res,Dat_inic,_Status,Cod_cli,Cod_tipo_qua,Cod_ope)values
+('1','6632895637914527','14','2023-06-02','2023-07-01','Aguardando Pagamento',1,'1','985'),
+('2','5638788854321547','5','2023-05-14','2023-06-05','Pago',2,'2','354');
 -- values('Num_Res','Num_cartao','Qtd_dia','Dat_res','Dat_inic','_Status','Cod_cli','Cod_tipo_qua','Cod_ope')
 
 select * from nacionalidade;
@@ -101,11 +107,4 @@ reserva.Cod_ope AS Codigo_Operadora						-- antes do from nao coloca virgula
 FROM cliente 											-- tabela 1
 INNER JOIN reserva 										-- tabela 2
 ON cliente.Cod_cli = reserva.Cod_cli;
-
-select * from nacionalidade;
-
-
-drop database 
-
-
 
