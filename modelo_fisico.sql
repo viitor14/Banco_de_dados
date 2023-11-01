@@ -54,8 +54,9 @@ foreign key(Cod_cli) references cliente (Cod_cli),
 foreign key (Cod_tipo_qua) references Tipo_quarto(Cod_tipo_qua),
 foreign key (Cod_ope) references Operadora (Cod_ope));
 
-Insert into Nacionalidade(Sigla,Nome)
-values('BR','Brasil'),('UK','Reino Unido');
+Insert into Nacionalidade(Sigla,Nome)values
+('BR','Brasil'),
+('UK','Reino Unido');
 
 insert into cliente(Nome_cli,Telefone,Cpf,Passaporte,Documento)values
 ('Juliana Gomes','985422265','65987544782','6325','685598'),
@@ -68,8 +69,8 @@ insert into tem(Sigla,Cod_cli)values
 insert into tipo_quarto(Cod_tipo_qua,Desc_tipo,Val_Tipo_qua)values
 ('1','Quarto Famalia','R$135,00'),
 ('2','Quarto Casal','R$64,00');
-																		/*Quando na tabela tiver uma chave estrangeira tem que inserir tambem.*/
-insert into Quarto(Num_qua,Andar,Cod_tipo_qua) values						-- Nesse caso Cod_tipo_qua é uma chave estrangeir, que é chave primaria da tabela tipo_quarto
+									
+insert into Quarto(Num_qua,Andar,Cod_tipo_qua) values						
 (4,1,'2'),
 (6,1,'1');
 
@@ -95,7 +96,7 @@ cliente.Nome_cli AS Nome,
 cliente.Telefone,
 cliente.Passaporte,
 cliente.Documento,
-reserva.Num_Res AS Numero_da_Reserva, 					-- tabela2.nome da coluna
+reserva.Num_Res AS Numero_da_Reserva, 					
 reserva.Num_cartao AS Numero_do_Cartao,
 reserva.Qtd_dia AS Quantidades_Dias,
 reserva.Dat_Res AS Data_Reservada,
